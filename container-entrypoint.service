@@ -1,0 +1,18 @@
+[Unit]
+Description=Container Entrypoint
+After=multi-user.target rc-local.service
+SuccessAction=exit
+FailureAction=exit
+
+[Service]
+Type=simple
+ExitType=cgroup
+Restart=on-failure
+ExecStart=/run/entrypoint
+
+# overridden by setup.sh if tty is attached
+StandardInput=null
+StandardOutput=journal+console
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,28 @@
+#!/bin/bash
+
+user="root"
+quiet=""
+
+while getopts 'qu:' opt; do
+    case "$opt" in
+        q)
+            quiet="-q"
+            ;;
+        u)
+            user="$OPTARG"
+            ;;
+        h|?)
+            echo "usage: run-session [-q] [-u <user | uid>] [--] <command> [<args> ...]"
+            exit 1
+            ;;
+    esac
+done
+shift "$((OPTIND - 1))"
+
+default=""
+if [[ "$#" -lt 1 ]]; then
+    # default to shell if no command provided
+    default="bash -l"
+fi
+
+exec systemd-run --uid "$user" -p PAMName=login --wait -tdPG $quiet -- $default "$@"
