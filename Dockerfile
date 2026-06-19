@@ -12,7 +12,7 @@ COPY run-session init.sh setup.sh /opt/container/
 # - sshd.service is disabled in favor of sshd.socket
 RUN ln -s /opt/container/run-session /usr/local/bin/ && \
     ln -s /opt/container/init.sh /usr/local/sbin/init && \
-    systemctl mask var-lib-nfs-rpc_pipefs.mount getty.target ldconfig.service sshd-keygen@rsa.service systemd-user-sessions.service && \
+    systemctl mask var-lib-nfs-rpc_pipefs.mount getty.target ldconfig.service sshd-keygen@rsa.service systemd-user-sessions.service modprobe@.service && \
     systemctl disable dnf-makecache.timer sshd.service && \
     systemctl enable sshd.socket && \
     sed -i 's/session\s\+required\s\+pam_loginuid.so/session optional pam_loginuid.so/' /etc/pam.d/* /usr/lib/pam.d/* && \

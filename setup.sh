@@ -29,7 +29,7 @@ function attach-tty() {
 [Service]
 StandardInput=tty
 StandardOutput=tty
-TTYPath=/dev/console
+TTYPath=$1
 TTYReset=yes
 TTYVHangup=yes
 EOF
@@ -41,7 +41,7 @@ function spawn-log-forwarder() {
 
 if [[ -t 0 ]]; then
     # have tty, attach it
-    attach-tty
+    attach-tty "$(readlink /proc/self/fd/0)"
     make-entrypoint
 else
     spawn-log-forwarder
