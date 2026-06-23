@@ -1,6 +1,6 @@
 FROM quay.io/fedora/fedora:44
 RUN dnf do -y --setopt=install_weak_deps=False --action=install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-"$(rpm -E %fedora)".noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$(rpm -E %fedora)".noarch.rpm \
-    --action=install acl attr bind-utils bzip2 capsh conntrack cpio curl dbus dnf-plugins-core ethtool file hostname htop iproute iputils less logrotate lsof mtr ncurses neovim nftables nmap-ncat openssh-clients openssh-server openssl passwd procps-ng rsync systemd tcpdump time tmux tree unzip util-linux util-linux-user wget which zip \
+    --action=install acl attr bind-utils bzip2 capsh conntrack cpio curl dbus dnf-plugins-core ethtool file hostname htop iproute iputils less logrotate lsof mtr ncurses neovim nftables nmap-ncat openssh-clients openssh-server openssl passwd procps-ng rsync systemd systemd-pam tcpdump time tmux tree unzip util-linux util-linux-user wget which zip \
     --action=upgrade '*' && \
     dnf clean all -y
 COPY 90-no-passwords.conf /etc/ssh/sshd_config.d/
