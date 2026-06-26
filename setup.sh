@@ -36,7 +36,7 @@ EOF
 }
 
 function spawn-log-forwarder() {
-    ( exec -a '@log-forwarder journalctl' journalctl -b 0 -f; ) &
+    ( exec -a '@log-forwarder journalctl' journalctl -b 0 -f --no-tail; ) &
 }
 
 if [[ -t 0 ]]; then
